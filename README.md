@@ -4,8 +4,7 @@
 ## The Task
 The goal of this shared task is to evaluate the ability of NLP systems to distinguish between **plausible and implausible clarifications** of an instruction. 
 
-For details on the task, see [the task website](https://clarificationtask.github.io).
-Shortly, there will also be a CodaLab page - stay tuned.
+For details on the task, see [the task website](https://clarificationtask.github.io) and [the CodaLab page](https://competitions.codalab.org/competitions/35210).
 
 ## Repo Setup
 After cloning this repository, install the dependencies by running the following command:
