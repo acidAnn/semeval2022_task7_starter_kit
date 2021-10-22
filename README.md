@@ -1,5 +1,12 @@
-# SemEval-2022 Task 7: Identifying Plausible Clarifications of Implicit and Underspecified Phrases in Instructional Texts
-:bulb: Starter kit with a format checker, a scorer and baselines
+# :bulb: SemEval-2022 Task 7: Identifying Plausible Clarifications of Implicit and Underspecified Phrases in Instructional Texts
+Starter kit with a format checker, a scorer and baselines
+
+## Contents
+- [The Task](https://github.com/acidAnn/semeval2022_task7_starter_kit#the-task)
+- [Repo Setup](https://github.com/acidAnn/semeval2022_task7_starter_kit#repo-setup)
+- [Format Checker](https://github.com/acidAnn/semeval2022_task7_starter_kit#format-checker)
+- [Scorer](https://github.com/acidAnn/semeval2022_task7_starter_kit#scorer)
+- [Baselines](https://github.com/acidAnn/semeval2022_task7_starter_kit#baselines)
 
 ## The Task
 The goal of this shared task is to evaluate the ability of NLP systems to distinguish between **plausible and implausible clarifications** of an instruction. 
@@ -16,7 +23,6 @@ To download the training data and the corresponding labels, got to [the task web
 * one file with the training instances
 * one reference file with the gold class labels for these instances (classification subtask)
 * one reference file with the gold plausibility scores for these instances (ranking subtask)
-
 
 ## Format Checker
 Each submission file with predictions has to be a TSV.
@@ -45,7 +51,6 @@ $ python format_checker_for_submission.py --path_to_predictions submission_class
 $ python format_checker_for_submission.py --path_to_predictions submission_ranking.tsv --subtask ranking
 ```
 
-
 ## Scorer
 The scorer takes 
 * a submission file with predictions in the above mentioned format 
@@ -62,7 +67,6 @@ For the ranking task, the scorer computes Spearman's rank correlation coefficien
 ```shell
 $ python scorer.py --path_to_predictions submission_ranking.tsv --path_to_labels reference_ranking.tsv --subtask ranking
 ```
-
 
 ## Baselines
 We provide two very simple baseline models here to help you to get started with the shared task.
