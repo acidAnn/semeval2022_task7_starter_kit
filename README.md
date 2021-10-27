@@ -70,16 +70,20 @@ $ python scorer.py --path_to_predictions submission_ranking.tsv --path_to_labels
 
 ## Baselines
 We provide two very simple baseline models here to help you to get started with the shared task.
-Until the development and evaluation data is ready, we evaluate these baseline models on the training data with 5-fold crossvaliation.
+The baseline for the classification subtask combines a tf-idf feature extractor with a Naive Bayes classifier.
+The baseline for the ranking subtask uses a tf-idf feature extractor and a linear regression model.
 
-### Subtask A: Multi-Class Classification
-The baseline for the classification subtask combines a tf-idf feature extractor with a Naive Bayes classifier:
-```shell
-$ python main.py --path_to_train train_data.tsv --path_to_labels reference_classification.tsv --classification_baseline bag-of-words
-```
+After being trained on the training set, these models achieve the following performance on the development set:
 
-### Subtask B: Ranking
-The baseline for the classification subtask combines a tf-idf feature extractor with a linear regression model:
+|subtask and performance metric|performance|
+|---|---|
+|multi-class classification: accuracy |37.68%|
+|ranking:  Spearman's rank correlation coefficient|+0.0560|
+
+You can use the script `main.py` to reproduce these training and evaluation steps:
 ```shell
-$ python main.py --path_to_train train_data.tsv --path_to_labels reference_ranking.tsv --ranking_baseline bag-of-words
+# for the classification subtask
+$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_labels.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_labels.tsv --classification_baseline bag-of-words
+# for the ranking subtask
+$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_scores.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_scores.tsv --ranking_baseline bag-of-words
 ```
