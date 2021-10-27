@@ -3,7 +3,7 @@ from typing import List
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import make_scorer
+from sklearn.metrics import make_scorer, accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn.naive_bayes import *
 from sklearn.pipeline import Pipeline
@@ -35,6 +35,17 @@ class BowClassificationBaseline:
         cv = cross_val_score(self.model, instances, labels, cv=5, scoring="accuracy")
         return list(cv)
 
+    def run_held_out_evaluation(
+        self,
+        training_instances: List[str],
+        training_labels: List[int],
+        dev_instances: List[str],
+        dev_labels: List[int],
+    ):
+        self.model.fit(X=training_instances, y=training_labels)
+        predictions = self.model.predict(dev_instances)
+        return accuracy_score(gold_ratings=dev_labels, predicted_ratings=predictions)
+
 
 class BowRankingBaseline:
     """A baseline for the ranking task that combines tf-idf feature extraction and linear regression."""
@@ -58,3 +69,16 @@ class BowRankingBaseline:
             self.model, instances, labels, cv=5, scoring=scorer
         )
         return list(scores_per_run)
+
+    def run_held_out_evaluation(
+        self,
+        training_instances: List[str],
+        training_labels: List[float],
+        dev_instances: List[str],
+        dev_labels: List[float],
+    ):
+        self.model.fit(X=training_instances, y=training_labels)
+        predictions = self.model.predict(dev_instances)
+        return spearmans_rank_correlation(
+            gold_ratings=dev_labels, predicted_ratings=predictions
+        )

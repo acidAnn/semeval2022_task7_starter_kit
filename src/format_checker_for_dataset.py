@@ -1,6 +1,6 @@
-"""A module for checking the format of the training dataset.
+"""A module for checking the format of the instances of a dataset.
 
-The requirements for the dataframe that contains the training data are:
+The requirements for the dataframe that contains the instances are:
 * shall have the following columns:
     "Id", "Resolved pattern",
     "Article title", "Section header", "Previous context", "Sentence", "Follow-up context",
@@ -20,12 +20,12 @@ import pandas as pd
 logging.basicConfig(level=logging.DEBUG)
 
 
-def check_format_of_training_dataset(training_dataset: pd.DataFrame) -> None:
-    """Check the format of dataframe with training data.
+def check_format_of_dataset(dataset: pd.DataFrame) -> None:
+    """Check the format of dataframe with instances.
 
-    :param training_dataset: dataframe with training set
+    :param dataset: dataframe with instance set
     """
-    logging.debug("Verifying the format of training dataset")
+    logging.debug("Verifying the format of the dataset")
 
     required_columns = [
         "Id",
@@ -42,12 +42,12 @@ def check_format_of_training_dataset(training_dataset: pd.DataFrame) -> None:
         "Filler5",
     ]
 
-    if not list(training_dataset.columns) == required_columns:
+    if not list(dataset.columns) == required_columns:
         raise ValueError(
-            f"File does not have the required columns: {list(training_dataset.columns)} != {required_columns}."
+            f"File does not have the required columns: {list(dataset.columns)} != {required_columns}."
         )
 
-    for id in training_dataset["Id"]:
+    for id in dataset["Id"]:
         try:
             int(id)
         except ValueError:
@@ -60,36 +60,34 @@ def check_format_of_training_dataset(training_dataset: pd.DataFrame) -> None:
         "FUSED HEAD",
     ]
 
-    for pattern in training_dataset["Resolved pattern"]:
+    for pattern in dataset["Resolved pattern"]:
         if pattern not in valid_patterns:
             raise ValueError(
                 f"Resolved pattern {pattern} is not among {valid_patterns}."
             )
 
-    for sentence in training_dataset["Sentence"]:
+    for sentence in dataset["Sentence"]:
         if "______" not in sentence:
             raise ValueError(
                 f"Sentence {sentence} does not contain placeholder '______'."
             )
 
     for filler_index in range(1, 6):
-        for row_index, filler in enumerate(training_dataset[f"Filler{filler_index}"]):
+        for row_index, filler in enumerate(dataset[f"Filler{filler_index}"]):
             if not filler:
                 raise ValueError(f"One of the fillers in row {row_index} is empty.")
 
-    logging.debug(
-        "Format checking for training dataset successful. No problems detected."
-    )
+    logging.debug("Format checking for dataset successful. No problems detected.")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Check format of file with training instances.")
+    parser = argparse.ArgumentParser(description="Check format of file with instances.")
     parser.add_argument(
-        "--path_to_train",
+        "--path_to_instances",
         type=str,
         required=True,
-        help="path to training instances",
+        help="path to instances",
     )
     args = parser.parse_args()
-    training_dataset = pd.read_csv(args.path_to_train, delimiter="\t")
-    check_format_of_training_dataset(training_dataset)
+    dataset = pd.read_csv(args.path_to_instances, delimiter="\t")
+    check_format_of_dataset(dataset)
