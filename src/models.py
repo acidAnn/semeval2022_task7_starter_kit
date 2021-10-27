@@ -44,7 +44,7 @@ class BowClassificationBaseline:
     ):
         self.model.fit(X=training_instances, y=training_labels)
         predictions = self.model.predict(dev_instances)
-        return accuracy_score(gold_ratings=dev_labels, predicted_ratings=predictions)
+        return accuracy_score(y_true=dev_labels, y_pred=predictions)
 
 
 class BowRankingBaseline:
