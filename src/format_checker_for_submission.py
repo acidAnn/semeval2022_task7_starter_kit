@@ -40,7 +40,7 @@ def check_format_of_submission(submission: pd.DataFrame, subtask: str) -> None:
     else:
         raise ValueError(f"Evaluation mode {subtask} not available.")
 
-    logging.debug("Format checking for submission successful. No problems detected.")
+    logging.debug("Format checking for submission successful. No problems detected.\n")
 
 
 def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:

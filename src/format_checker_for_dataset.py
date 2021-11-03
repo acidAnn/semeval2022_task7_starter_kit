@@ -77,7 +77,7 @@ def check_format_of_dataset(dataset: pd.DataFrame) -> None:
             if not filler:
                 raise ValueError(f"One of the fillers in row {row_index} is empty.")
 
-    logging.debug("Format checking for dataset successful. No problems detected.")
+    logging.debug("Format checking for dataset successful. No problems detected.\n")
 
 
 if __name__ == "__main__":
