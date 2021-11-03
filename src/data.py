@@ -1,7 +1,6 @@
 """A module for preparing the training data for the baselines."""
-from typing import List, Tuple
-import csv
 import logging
+from typing import List, Tuple
 
 import pandas as pd
 

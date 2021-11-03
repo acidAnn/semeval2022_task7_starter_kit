@@ -6,14 +6,12 @@ python main.py --path_to_train train_data.tsv --path_to_training_labels train_sc
 """
 import argparse
 import logging
-import statistics
 
 import pandas as pd
 
 from data import (
     retrieve_instances_from_dataset,
     retrieve_labels_from_dataset_for_classification,
-    retrieve_labels_from_dataset_for_ranking,
     write_predictions_to_file,
 )
 from format_checker_for_dataset import check_format_of_dataset

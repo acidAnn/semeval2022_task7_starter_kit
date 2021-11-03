@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import make_scorer, accuracy_score
 from sklearn.model_selection import cross_val_score
-from sklearn.naive_bayes import *
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 
 from scorer import spearmans_rank_correlation
@@ -22,7 +22,7 @@ class Baseline(abc.ABC):
     def __init__(self):
         self.model = None
 
-    @abstractmethod
+    @abc.abstractmethod
     def run_cross_validation(self, instances: List[str], labels: List) -> List:
         """Run k-fold cross-validation on input data.
 
@@ -31,7 +31,7 @@ class Baseline(abc.ABC):
         :return: a list with the performance metric for each cross-validation iteration
         """
 
-    @abstractmethod
+    @abc.abstractmethod
     def run_held_out_evaluation(
         self,
         training_instances: List[str],
