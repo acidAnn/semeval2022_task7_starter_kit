@@ -12,6 +12,7 @@ import pandas as pd
 from data import (
     retrieve_instances_from_dataset,
     retrieve_labels_from_dataset_for_classification,
+    retrieve_labels_from_dataset_for_ranking,
     write_predictions_to_file,
 )
 from format_checker_for_dataset import check_format_of_dataset
@@ -86,10 +87,6 @@ if args["classification_baseline"] or args["ranking_baseline"]:
         args["path_to_training_labels"], sep="\t", header=None, names=["Id", "Label"]
     )
     check_format_of_submission(training_label_set, subtask=subtask)
-    training_labels = retrieve_labels_from_dataset_for_classification(
-        training_label_set
-    )
-
     baseline_model = None
 
     if (
@@ -99,11 +96,15 @@ if args["classification_baseline"] or args["ranking_baseline"]:
         logging.debug("Subtask A: multi-class classification")
         logging.debug("Run classification baseline with bag of words")
         baseline_model = BowClassificationBaseline()
+        training_labels = retrieve_labels_from_dataset_for_classification(
+            training_label_set
+        )
 
     elif args["ranking_baseline"] and args["ranking_baseline"] == "bag-of-words":
         logging.debug("Subtask B: ranking")
         logging.debug("Run ranking baseline with bag of words")
         baseline_model = BowRankingBaseline()
+        training_labels = retrieve_labels_from_dataset_for_ranking(training_label_set)
 
     dev_predictions = baseline_model.run_held_out_evaluation(
         training_instances=training_instances,
