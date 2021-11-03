@@ -7,7 +7,7 @@ Starter kit with a format checker, a scorer and baselines
 - [Format Checker](https://github.com/acidAnn/semeval2022_task7_starter_kit#format-checker)
 - [Scorer](https://github.com/acidAnn/semeval2022_task7_starter_kit#scorer)
 - [Baselines](https://github.com/acidAnn/semeval2022_task7_starter_kit#baselines)
-- Questions? Need a Clarification?
+- [Questions? Need a Clarification?](https://github.com/acidAnn/semeval2022_task7_starter_kit/tree/dev_set#questions-need-a-clarification-)
 
 ## The Task
 The goal of this shared task is to evaluate the ability of NLP systems to distinguish between **plausible and implausible clarifications** of an instruction. 
