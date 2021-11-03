@@ -1,5 +1,6 @@
 """A module with the baseline models for the classification and ranking subtasks."""
 from typing import List
+import abc
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LinearRegression
@@ -15,10 +16,42 @@ def identity(x):
     return x
 
 
-class BowClassificationBaseline:
+class Baseline(abc.ABC):
+    """An abstract baseline class."""
+
+    def __init__(self):
+        self.model = None
+
+    @abstractmethod
+    def run_cross_validation(self, instances: List[str], labels: List) -> List:
+        """Run k-fold cross-validation on input data.
+
+        :param instances: list of str instances, i. e. sentences with insertions
+        :param labels: list of labels
+        :return: a list with the performance metric for each cross-validation iteration
+        """
+
+    @abstractmethod
+    def run_held_out_evaluation(
+        self,
+        training_instances: List[str],
+        training_labels: List,
+        dev_instances: List[str],
+    ) -> List:
+        """Train model on training data and make predictions for development data.
+
+        :param training_instances: list of str training instances, i. e. sentences with insertions
+        :param training_labels: list of gold labels for the training instances
+        :param dev_instances: list of str development instances, i. e. sentences with insertions
+        :return: a list of predictions
+        """
+
+
+class BowClassificationBaseline(Baseline):
     """A baseline for the classification task that combines tf-idf feature extraction and multinomial Naive Bayes."""
 
     def __init__(self):
+        super().__init__()
         vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
         self.model = Pipeline([("vec", vec), ("cls", MultinomialNB())])
 
@@ -52,10 +85,11 @@ class BowClassificationBaseline:
         return self.model.predict(dev_instances)
 
 
-class BowRankingBaseline:
+class BowRankingBaseline(Baseline):
     """A baseline for the ranking task that combines tf-idf feature extraction and linear regression."""
 
     def __init__(self):
+        super().__init__()
         self.model = Pipeline(
             [("vec", TfidfVectorizer()), ("regr", LinearRegression())]
         )
