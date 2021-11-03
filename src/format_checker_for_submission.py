@@ -52,14 +52,9 @@ def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:
 
     for rating_str in submission["Label"]:
         try:
-            rating = float(rating_str)
+            float(rating_str)
         except ValueError:
             raise ValueError(f"Rating {rating_str} is not a float.")
-        else:
-            if 1 > rating or rating > 5:
-                raise ValueError(
-                    f"Rating {rating} is not within the range between 1 and 5."
-                )
 
 
 def check_format_for_classification_submission(submission: pd.DataFrame) -> None:
