@@ -28,8 +28,8 @@ class BowClassificationBaseline:
         """Run k-fold cross-validation on the input data.
 
         :param instances: list of str instances, i. e. sentences with insertions
-        :param labels: list of float gold ratings
-        :return: a list of with the float accuracy for each run
+        :param labels: list of int gold class indices
+        :return: a list with the float accuracy for each run
         """
         instances = [text.split() for text in instances]
         cv = cross_val_score(self.model, instances, labels, cv=5, scoring="accuracy")
@@ -40,11 +40,16 @@ class BowClassificationBaseline:
         training_instances: List[str],
         training_labels: List[int],
         dev_instances: List[str],
-        dev_labels: List[int],
-    ):
+    ) -> List[int]:
+        """Train model on training data and make predictions for development data.
+
+        :param training_instances: list of str training instances, i. e. sentences with insertions
+        :param training_labels: list of int gold class indices for the training instances
+        :param dev_instances: list of str development instances, i. e. sentences with insertions
+        :return: a list of integers, the class index predictions
+        """
         self.model.fit(X=training_instances, y=training_labels)
-        predictions = self.model.predict(dev_instances)
-        return accuracy_score(y_true=dev_labels, y_pred=predictions)
+        return self.model.predict(dev_instances)
 
 
 class BowRankingBaseline:
@@ -75,10 +80,13 @@ class BowRankingBaseline:
         training_instances: List[str],
         training_labels: List[float],
         dev_instances: List[str],
-        dev_labels: List[float],
-    ):
+    ) -> List[float]:
+        """Train model on training data and make predictions for development data.
+
+        :param training_instances: list of str training instances, i. e. sentences with insertions
+        :param training_labels: list of float gold ratings for training instances
+        :param dev_instances: list of str development instances, i. e. sentences with insertions
+        :return: a list of floats, the class index predictions
+        """
         self.model.fit(X=training_instances, y=training_labels)
-        predictions = self.model.predict(dev_instances)
-        return spearmans_rank_correlation(
-            gold_ratings=dev_labels, predicted_ratings=predictions
-        )
+        return self.model.predict(dev_instances)
