@@ -1,8 +1,8 @@
 """A module for running baseline models.
 
 Examples:
-python main.py --path_to_train train_data.tsv --path_to_training_labels train_labels.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_labels.tsv --classification_baseline bag-of-words
-python main.py --path_to_train train_data.tsv --path_to_training_labels train_scores.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_scores.tsv --ranking_baseline bag-of-words
+python main.py --path_to_train train_data.tsv --path_to_training_labels train_labels.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_labels.tsv --path_to_predictions pred_dev_class.tsv --classification_baseline bag-of-words
+python main.py --path_to_train train_data.tsv --path_to_training_labels train_scores.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_scores.tsv --path_to_predictions pred_dev_rank.tsv --ranking_baseline bag-of-words
 """
 import argparse
 import logging
@@ -52,7 +52,7 @@ ap.add_argument(
     "--path_to_predictions",
     required=True,
     type=str,
-    help="Path to file in which to write the predictions",
+    help="Path to tsv file in which to write the predictions",
 )
 ap.add_argument(
     "--classification_baseline",

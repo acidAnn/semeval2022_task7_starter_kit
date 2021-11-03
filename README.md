@@ -7,6 +7,7 @@ Starter kit with a format checker, a scorer and baselines
 - [Format Checker](https://github.com/acidAnn/semeval2022_task7_starter_kit#format-checker)
 - [Scorer](https://github.com/acidAnn/semeval2022_task7_starter_kit#scorer)
 - [Baselines](https://github.com/acidAnn/semeval2022_task7_starter_kit#baselines)
+- Questions? Need a Clarification?
 
 ## The Task
 The goal of this shared task is to evaluate the ability of NLP systems to distinguish between **plausible and implausible clarifications** of an instruction. 
@@ -83,7 +84,12 @@ After being trained on the training set, these models achieve the following perf
 You can use the script `main.py` to reproduce these training and evaluation steps:
 ```shell
 # for the classification subtask
-$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_labels.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_labels.tsv --classification_baseline bag-of-words
+$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_labels.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_labels.tsv --path_to_predictions pred_dev_class.tsv --classification_baseline bag-of-words
 # for the ranking subtask
-$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_scores.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_scores.tsv --ranking_baseline bag-of-words
+$ python main.py --path_to_train train_data.tsv --path_to_training_labels train_scores.tsv --path_to_dev dev_data.tsv --path_to_dev_labels dev_scores.tsv --path_to_predictions pred_dev_rank.tsv --ranking_baseline bag-of-words
 ```
+The script produces a TSV file with predictions (under the path specified with the flag `path_to_predictions`) and then hands that file to the scorer script.
+
+## Questions? Need a Clarification? :)
+If you have technical trouble with the code in this repo, please open an [Issue](https://github.com/acidAnn/semeval2022_task7_starter_kit/issues).
+You can also ask question on the task in general in our [Google group](https://groups.google.com/g/semeval2022-task7/).
