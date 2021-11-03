@@ -106,7 +106,6 @@ if args["classification_baseline"]:
             predictions=dev_predictions,
             subtask="classification",
         )
-        check_format_of_submission(prediction_dataframe, subtask="classification")
         accuracy = score(
             submission_file=args["path_to_predictions"],
             reference_file=args["path_to_dev_labels"],
@@ -133,7 +132,6 @@ elif args["ranking_baseline"]:
             predictions=dev_predictions,
             subtask="ranking",
         )
-        check_format_of_submission(prediction_dataframe, subtask="ranking")
         spearmansr = score(
             submission_file=args["path_to_predictions"],
             reference_file=args["path_to_dev_labels"],
