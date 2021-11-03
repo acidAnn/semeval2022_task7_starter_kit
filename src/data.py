@@ -1,6 +1,7 @@
 """A module for preparing the training data for the baselines."""
 from typing import List, Tuple
 import csv
+import logging
 
 import pandas as pd
 
@@ -82,9 +83,9 @@ def write_predictions_to_file(
     if subtask == "classification":
         predictions = convert_class_indices_to_labels(predictions)
 
-    dataframe = pd.DataFrame({"Id": ids, "Prediction": predictions})
+    dataframe = pd.DataFrame({"Id": ids, "Label": predictions})
     logging.info(f"--> Writing predictions to {path_to_predictions}")
-    dataframe.write_csv(path_to_predictions, sep="\t", index=False, header=False)
+    dataframe.to_csv(path_to_predictions, sep="\t", index=False, header=False)
 
     return dataframe
 
