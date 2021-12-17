@@ -78,8 +78,8 @@ After being trained on the training set, these models achieve the following perf
 
 |subtask and performance metric|performance|
 |---|---|
-|multi-class classification: accuracy |37.68%|
-|ranking:  Spearman's rank correlation coefficient|+0.0560|
+|multi-class classification: accuracy |33.44%|
+|ranking:  Spearman's rank correlation coefficient|+0.0590|
 
 You can use the script `main.py` to reproduce these training and evaluation steps:
 ```shell
